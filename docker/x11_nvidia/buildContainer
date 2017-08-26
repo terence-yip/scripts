@@ -1,0 +1,5 @@
+#!/bin/bash
+
+xhost +local:docker
+
+docker run -ti --network=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --privileged $CONTAINER_NAME_CMD -v ~:/root/home_mnt --ipc host x11_nvidia
