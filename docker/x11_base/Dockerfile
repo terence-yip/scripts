@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-WORKDIR /app
+WORKDIR /work
 
 RUN apt-get update
 
