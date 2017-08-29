@@ -1,0 +1,2 @@
+#!/bin/bash
+docker build -t x11_mac .
