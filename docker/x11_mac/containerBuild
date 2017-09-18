@@ -1,4 +1,11 @@
 #!/bin/bash
+if [ -z $1 ]
+then
+   CONTAINER_NAME_STRING=""
+else
+   CONTAINER_NAME_STRING="--name=$1"
+fi
+
 xhost +local:docker
 docker run \
 -ti \
@@ -6,5 +13,6 @@ docker run \
 -e DISPLAY=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'):0 \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 --privileged \
+$CONTAINER_NAME_STRING \
 -v ~:/root/home \
 --ipc host x11_mac
