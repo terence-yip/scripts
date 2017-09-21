@@ -6,7 +6,8 @@ else
    CONTAINER_NAME_STRING="--name=$1"
 fi
 
-xhost +local:docker
+ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+xhost + $ip
 docker run \
 -ti \
 --network=host \
