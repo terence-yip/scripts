@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ -z $1 ]
+then
+   echo "Please specify pcap file: ./runTcpReplayContainer pcapFile"
+   exit -1
+else
+   PCAP_FILE=$1
+fi
+export TMP_PCAP=/tmp/tmp_tcpreplay.pcap
+cp -r $PCAP_FILE $TMP_PCAP
+
+docker run \
+-ti --rm \
+-v $TMP_PCAP:$TMP_PCAP \
+tcpreplay \
+/usr/bin/tcpreplay --intf1=eth0 $TMP_PCAP
+

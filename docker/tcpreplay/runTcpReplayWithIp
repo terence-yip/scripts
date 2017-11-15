@@ -1,0 +1,28 @@
+#!/bin/bash
+if [ -z $1 ]
+then
+   echo "Please specify pcap file: ./runTcpReplayContainer pcapFile"
+   exit -1
+else
+   PCAP_FILE=$1
+fi
+export TMP_PCAP=/tmp/tmp_tcpreplay.pcap
+cp -r $PCAP_FILE $TMP_PCAP
+
+export DOCKER_INTERFACE_MAC=$(ip -f link addr show docker0 | grep link | awk '{print $2}')
+export DOCKER_INTERFACE_ADDR=$(ip -f inet addr show docker0 | grep inet | awk '{print $2}')
+
+OLD_SRC_IP=192.168.200.100
+NEW_SRC_IP=192.169.175.2
+OLD_DEST_IP=255.255.255.255
+NEW_DEST_IP=$DOCKER_INTERFACE_ADDR
+SRC_MAC=02:42:c0:a9:af:02
+DEST_MAC=$DOCKER_INTERFACE_MAC
+OLD_FILE=$TMP_PCAP
+NEW_FILE=/tmp/tmp_tcpreplay_rewritten.pcap
+
+docker run \
+-ti --rm \
+-v $TMP_PCAP:$TMP_PCAP \
+tcpreplay \
+/bin/bash -c "/usr/bin/tcprewrite -D $OLD_DEST_IP:$NEW_DEST_IP -S $OLD_SRC_IP:$NEW_SRC_IP --enet-smac=$SRC_MAC --enet-dmac=$DEST_MAC -i $OLD_FILE -o $NEW_FILE --fixcsum && /usr/bin/tcpreplay --intf1=eth0 -l 500 $NEW_FILE"
