@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+   CONTAINER_NAME_STRING=""
+else
+   CONTAINER_NAME_STRING="--name=$1"
+fi
+
+docker run \
+  $CONTAINER_NAME_STRING \
+  -it -v ~:/root/host \
+  debian:stable-slim bash
