@@ -1,0 +1,3 @@
+if you're running a Dell Precision 7510 laptop that's plugged in, run `sudo cpupower frequency-set -g performance` for a much faster machine. Run `sudo cpupower frequency-set -g powersave` if you need to use it on battery again, or your battery will drain faster
+OR
+https://askubuntu.com/questions/523640/how-i-can-disable-cpu-frequency-scaling-and-set-the-system-to-performance
