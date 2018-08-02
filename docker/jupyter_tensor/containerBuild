@@ -1,0 +1,10 @@
+#!/bin/bash
+
+docker run \
+  -p 8888:8888 \
+  --rm \
+  -v ~/work:/home/jovyan/work \
+  jupyter/tensorflow-notebook
+  #-v ~:/root/host \
+  #-w /root/host \
+
