@@ -1,0 +1,11 @@
+#!/bin/bash
+
+docker run \
+  -p 8888:8888 \
+  --rm \
+  -v ~/work:/home/jovyan/work \
+  object_detection
+  #-v ~:/root/host \
+  #-w /root/host \
+  #--env /home/jovyan/work/tensorflow/models/research/:$JUPYTER_PATH
+
