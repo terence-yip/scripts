@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  scipy:
+    image: jupyter/scipy-notebook:17aba6048f44
+    ports:
+    - "8888:8888"
+    volumes:
+    - "~:/home/jovyan/work"
